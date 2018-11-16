@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href="/css/#{cssPath}.css")
+    if(ioPath)
+      script(src="/js/#{ioPath}.js")      
+    script(src="/js/#{jsPath}.js")
+  body
+    block content

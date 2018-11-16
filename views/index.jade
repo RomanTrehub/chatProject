@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  form(action="", method="post", id='f' name = 'user')
+    h1 Авторизация пользователя
+    p
+      label(for="name") Введите имя
+      input(type="text", name='name')
+    p
+      label(for="pass") Введите пароль
+      input(type="password", name='pass')
+
+    input(type="submit", value="Войти в чат")
+    p Welcome to #{title}
