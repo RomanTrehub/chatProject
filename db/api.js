@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = mongoose.connect('mongodb://localhost/chat');
+const db = mongoose.connect('mongodb://localhost:27017/chat');
 const User = require ('./User');
 
 createUser = async (userData)=>{
@@ -17,7 +17,7 @@ createUser = async (userData)=>{
 
 }
  
-exports.getUsers = function(){
+getUserId = function(userpass){
 	User.find(function (err, users) {
 		return users;
 	});
@@ -26,9 +26,9 @@ exports.getUsers = function(){
  
 exports.checkUser = async (userData) => {
 	try{
-		const user = User.findOne({name: userData.name});
+		const user = await User.findOne({name: userData.name});
 
-		if (user  && (user.password == userData.pass && user.name == userData.name)){
+		if (user  && (user.password == userData.pass && user.username == userData.name)){
 			console.log("User password is ok");
 			return User.find();
 		} else {

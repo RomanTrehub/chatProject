@@ -1,8 +1,43 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#author{
+  position: absolute;
+  text-align: center;
+  top: calc(50% - 200px);
+}
+
+form input[type="submit"] {
+  width: 35%;
+  background-color: #241912;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+input{
+  display: inline-block;
+  padding: 5px 30px;
+  border: solid 1px #000;
+}
+
+label{
+ font-size: 19px;
 }
 
 a {
   color: #00B7FF;
+}
+
+P{
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
 }

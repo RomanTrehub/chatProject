@@ -1,22 +1,27 @@
 extends layout
 
 block content
-  h1= message
-  div.usersList
-    mixin userListCreator(users)
-      ul
+  mixin userListCreator(users)
+    div#usersList
+      h2 Пользователи чата
+      ul 
         each user in users
           li
             p= user.username
 
-  textarea(name="", cols="40", rows="10", id ='chatWindow')
-  p
-  label(for="name") Введите сообщение
-  input(type="text", name='name', id='message')
-
-  input(type="button", value="Войти в чат" class="send")
-
   +userListCreator(users)
+  div#chat
+    h1 Добро пожаловать
+    div#showing_mes
+      ul#chatWindow
+    div#form_mes
+      label(for="message") Введите сообщение
+      input(type="text", name='message', id='mes')
+
+      input(type="button", value="Войти в чат" class="send")
+
+  div(id='line')
+ // p(display='none' id ='id') userId
 
 
 

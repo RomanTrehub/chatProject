@@ -1,8 +1,68 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
-a {
-  color: #00B7FF;
+#usersList {
+  width: 30%;
+  height: 100%;
 }
+
+#chat{
+  width: 65%;
+  text-align: center;
+}
+
+#form_mes{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: left;
+}
+
+#showing_mes{
+  position: relative;
+  height: 90%;
+  overflow: hidden;
+}
+
+input[type='text']{
+    padding: 10px; 
+    width: 50%;  
+}
+input[type='button']{
+  padding: 10px; 
+
+}
+label{
+  font-size: 15px;
+  margin-right: 10px;
+ }
+ #chatWindow{
+   text-align: left;
+ }
+
+
+li{
+  display: block;
+  max-width: 90%;
+  list-style-type: none;
+  overflow-wrap: break-word;
+}
+
+#line{
+  position: absolute;
+  height: auto;
+  width: 2px;
+  background-color: #000;
+  left: 35%;
+}
+
+
+
+
+

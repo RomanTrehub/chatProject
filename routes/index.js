@@ -9,10 +9,11 @@ router.get('/', (req, res)=>{
 });
 
 router.post('/', (req,res)=>{ //подождать здесь 
-//api.checkUser(req.body)
+console.log(req.body);
 const makeRequest = async ()=> {
   try{
   const data = await api.checkUser(req.body);
+  console.log(data)
   res.render('chat', {users: data, jsPath: 'chat/chat', cssPath: 'chat', ioPath: 'chat/socket.io'});
   }catch(err){
     return err;

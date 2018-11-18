@@ -6,8 +6,9 @@ io.on('connection', function (socket){
    console.log('connection');
 
   socket.on('send', function (msg) {
-    console.log(msg);
-    io.sockets.emit('msgToClients', msg);
+    if(msg.length <= 200){
+      io.sockets.emit('msgToClients', msg);
+    }
   });
 
 });

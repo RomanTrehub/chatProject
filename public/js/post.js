@@ -1,5 +1,6 @@
 
-    var form = document.getElementById('f');
+/* window.onload = ()=>{
+ var form = document.getElementById('f');
 
     function sendForm(){
         console.log(form.elements.name.value);
@@ -18,8 +19,8 @@
     }
 
     form.onsubmit = function(e){
-       e.preventDefault();
         sendForm();
+        return false;
+        window.location.reload();
     }
-
-
+}*/
