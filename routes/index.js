@@ -12,9 +12,9 @@ router.post('/', (req,res)=>{ //подождать здесь
 console.log(req.body);
 const makeRequest = async ()=> {
   try{
-  const data = await api.checkUser(req.body);
-  console.log(data)
-  res.render('chat', {users: data, jsPath: 'chat/chat', cssPath: 'chat', ioPath: 'chat/socket.io'});
+  const allUsers = await api.checkUser(req.body);
+  const newUser = await api.getUser(req.body);
+  res.render('chat', {user:newUser._id, users: allUsers, jsPath: 'chat/chat', cssPath: 'chat', ioPath: 'chat/socket.io'});
   }catch(err){
     return err;
   }

@@ -1,18 +1,26 @@
 window.onload = ()=>{
-  //  const IdInfo = document.getElementById('id');
-  //  const userId = idInfo.innerHTML();
-   // document.remove(IdInfo);
+    const idInfo = document.getElementById('id');
+    const userId = idInfo.innerHTML;
+    document.body.removeChild(idInfo);
     const messageInput = document.getElementById('mes');
     const chatWindow = document.getElementById('chatWindow');
-    const socket = io.connect(`http://localhost:8080?`);//  & передавать токен, который формируется в базе при регистрации
-  //  ${userId} добавить к конекту сервера
+    let liFocusElem;
+
+    document.onfocus = (e)=>{
+        if(e.target.className == 'user'){
+            liFocusElem = e.target;
+       }
+    }
+
+    const socket = io.connect(`http://localhost:8080?id=${userId}`);//  & передавать токен, который формируется в базе при регистрации
+   // ${userId} добавить к конекту сервера
     socket.on('connect', ()=>{
         console.log("Ok")
     })
 
-    socket.on('msgToClients', (msg)=>{
+    socket.on('msgToClients', (userName,msg)=>{
         let li = document.createElement("li");
-        li.innerHTML = msg;
+        li.innerHTML = `${userName}: ${msg}`;
         chatWindow.appendChild(li);
        // chatWindow.value += `\n ${msg}`;
     });
@@ -21,7 +29,16 @@ window.onload = ()=>{
         switch (e.target.className){
             case 'send':
                 socket.emit('send', messageInput.value);
+                return;
+            case 'ban':
+                if(liFocusElem){
+                    socket.emit('bun', );
+                    
+                }
+            case 'mute':
+                if(liFocusElem){
+                    socket.emit('mute', )
+                }
         }
     }
-    return false;
 }

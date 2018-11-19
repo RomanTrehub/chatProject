@@ -6,7 +6,7 @@ block content
       h2 Пользователи чата
       ul 
         each user in users
-          li
+          li(tabindex='1', class='user')
             p= user.username
 
   +userListCreator(users)
@@ -21,7 +21,7 @@ block content
       input(type="button", value="Войти в чат" class="send")
 
   div(id='line')
- // p(display='none' id ='id') userId
+  p(display='none' id ='id')= user._id
 
 
 

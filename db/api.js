@@ -17,18 +17,24 @@ createUser = async (userData)=>{
 
 }
  
-getUserId = function(userpass){
-	User.find(function (err, users) {
-		return users;
-	});
+exports.getUserById = async (userId) =>{
+	const user = await User.find({_id: userId});
+	return user[0];
+
+}
+
+exports.getUser = async (userData) =>{
+	const user = await User.find({username: userData.name, password: userData.pass});
+	return user[0];
+
 }
 
  
 exports.checkUser = async (userData) => {
 	try{
-		const user = await User.findOne({name: userData.name});
+		const user = await User.findOne({username: userData.name, password: userData.pass});
 
-		if (user  && (user.password == userData.pass && user.username == userData.name)){
+		if (user){
 			console.log("User password is ok");
 			return User.find();
 		} else {

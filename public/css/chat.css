@@ -1,15 +1,26 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   display: flex;
+  margin: 0;
+  padding: 0;
   justify-content: space-between;
   position: relative;
-  height: 100%;
+  max-height: 900px;
   width: 100%;
+  overflow: hidden;
+  top: 0;
 }
 
 #usersList {
   width: 30%;
-  height: 100%;
+  height: inherit;
+}
+
+#usersList ul {
+  width: inherit;
+  height: 900px;
+  overflow: auto;
+  user-select: none;
 }
 
 #chat{
@@ -18,7 +29,7 @@ body {
 }
 
 #form_mes{
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
   text-align: left;
@@ -27,7 +38,7 @@ body {
 #showing_mes{
   position: relative;
   height: 90%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 input[type='text']{
@@ -44,6 +55,7 @@ label{
  }
  #chatWindow{
    text-align: left;
+
  }
 
 
@@ -52,6 +64,7 @@ li{
   max-width: 90%;
   list-style-type: none;
   overflow-wrap: break-word;
+  cursor: pointer;
 }
 
 #line{
@@ -62,6 +75,10 @@ li{
   left: 35%;
 }
 
+li:focus{
+  outline: 1px dashed rgb(96, 109, 96); 
+  background-color:  rgb(212, 210, 172);
+}
 
 
 
