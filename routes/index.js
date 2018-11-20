@@ -9,14 +9,14 @@ router.get('/', (req, res)=>{
 });
 
 router.post('/', (req,res)=>{ //подождать здесь 
-console.log(req.body);
 const makeRequest = async ()=> {
   try{
-  const allUsers = await api.checkUser(req.body);
-  const newUser = await api.getUser(req.body);
-  res.render('chat', {user:newUser._id, users: allUsers, jsPath: 'chat/chat', cssPath: 'chat', ioPath: 'chat/socket.io'});
+    const allUsers = await api.checkUser(req.body);
+    const newUser = await api.getUser(req.body);
+    console.log(newUser.admin);
+    res.render('chat', { admin: newUser.admin, id:newUser._id, users: allUsers, jsPath: 'chat/chat', cssPath: 'chat', ioPath: 'chat/socket.io'});
   }catch(err){
-    return err;
+    res.render('index', { error: err.message, jsPath: 'post', cssPath: 'author'});
   }
 }
 

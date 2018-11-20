@@ -4,12 +4,16 @@ block content
   mixin userListCreator(users)
     div#usersList
       h2 Пользователи чата
-      ul 
+      ul#usersUl
         each user in users
-          li(tabindex='1', class='user')
-            p= user.username
+          li(class='user', onclick = 'setRole(#{user._id})')
+            p #{user.username} :off
 
   +userListCreator(users)
+  if(admin)
+    div#adminButtons
+      input(type="button", value="Ban" class="ban")
+      input(type="button", value="Mute" class="mute")
   div#chat
     h1 Добро пожаловать
     div#showing_mes
@@ -18,10 +22,11 @@ block content
       label(for="message") Введите сообщение
       input(type="text", name='message', id='mes')
 
-      input(type="button", value="Войти в чат" class="send")
+      input(type="button", value="Отправить", class="send")
 
   div(id='line')
-  p(display='none' id ='id')= user._id
+ 
+  p(display='none' id ='id')= id
 
 
 

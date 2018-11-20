@@ -12,7 +12,7 @@ body {
 }
 
 #usersList {
-  width: 30%;
+  width: 25%;
   height: inherit;
 }
 
@@ -24,7 +24,7 @@ body {
 }
 
 #chat{
-  width: 65%;
+  width: 60%;
   text-align: center;
 }
 
@@ -80,6 +80,10 @@ li:focus{
   background-color:  rgb(212, 210, 172);
 }
 
-
+#adminButtons input{
+  position: relative;
+  display: inline-block;
+  bottom: 0;
+}
 
 

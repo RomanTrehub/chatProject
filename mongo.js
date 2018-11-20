@@ -13,6 +13,9 @@ MongoClient.connect(url, function(err, client) {
   console.log("Connected successfully to server");
 
   const db = client.db(dbName);
+  const collection = db.collection('users');
+  collection.remove({});
+  collection.insert({username: 'admin', password: 'admin', admin: true})
 
   client.close();
 });
