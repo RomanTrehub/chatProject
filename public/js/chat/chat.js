@@ -4,10 +4,9 @@ window.onload = ()=>{
     document.body.removeChild(idInfo);
     const messageInput = document.getElementById('mes');
     const chatWindow = document.getElementById('chatWindow');
-    let liFocusElem;
-    let usersList = document.getElementsByClassName('user');
-    let sendButton = document.getElementsByClassName('send')[0];
-    const usersUl = document.getElementById('usersUl');
+    const usersList = document.getElementsByClassName('user');
+    const sendButton = document.getElementsByClassName('send')[0];
+
 
 /*     document.body.onfocus = (e)=>{
         //if(e.target.className == 'user'){
@@ -19,7 +18,7 @@ window.onload = ()=>{
     const socket = io.connect(`http://localhost:8080?id=${userId}`);//  & передавать токен, который формируется в базе при регистрации
    // ${userId} добавить к конекту сервера
     socket.on('connect', ()=>{
-        console.log("Ok")
+        
     })
 
     socket.on('msgToClients', (userName,msg)=>{
@@ -30,66 +29,105 @@ window.onload = ()=>{
     });
 
     socket.on('deleteUser', (username)=>{
-        for (let i = 0; i <= usersList.length; i++){
-            if (usersList[i].innerHTML == username + ': off'){
-                usersList[i].innerHTML = username;
+        console.log(username);
+        for (let i = 0; i < usersList.length; i++){
+            if (usersList[i].getAttribute('name') == username){
+                usersList[i].firstChild.innerHTML = `${username} :off`;
+                //usersList[i].lastChild.firstChild.value = 'Unban';
             }
         }
     });
 
-/*     socket.on('addUser', (username)=>{
-        for (let i = 0; i <= usersList.length; i++){
-            if (usersList[i].innerHTML == username){
-                usersList[i].innerHTML+= ': оff';
+    socket.on('banButton', (username) =>{
+        for (let i = 0; i < usersList.length; i++){
+            if (usersList[i].getAttribute('name') == username){
+                usersList[i].lastChild.firstChild.value = 'Unban';
+            }
+        }   
+    });      
+
+    socket.on('unbanButton', (username) =>{
+        for (let i = 0; i < usersList.length; i++){
+            if (usersList[i].getAttribute('name') == username){
+                usersList[i].lastChild.firstChild.value = 'Ban';
+            }
+        }   
+    });
+    
+    socket.on('muteButton', (username) =>{
+        for (let i = 0; i < usersList.length; i++){
+            if (usersList[i].getAttribute('name') == username){
+                usersList[i].lastChild.lastChild.value = 'Unmute';
+            }
+        }   
+    });      
+
+    socket.on('unmuteButton', (username) =>{
+        //console.log('working')
+        for (let i = 0; i < usersList.length; i++){
+            if (usersList[i].getAttribute('name') == username){
+                usersList[i].lastChild.lastChild.value = 'Mute';
+            }
+        }   
+    });    
+
+     socket.on('addUser', (usernamesArr, allUsersNames)=>{
+         if(usersList.length < allUsersNames.length){
+            const li = usersList[usersList.length-1].cloneNode(true);
+            li.setAttribute('name', allUsersNames[allUsersNames.length-1]);
+            li.firstChild.innerHTML = allUsersNames[allUsersNames.length-1];
+            usersList[usersList.length-1].parentNode.insertBefore(li,usersList[usersList.length-1].nextSibling);
+         }
+
+        outer:for (var i = 0; i < usersList.length; i++){          
+            for(let j = 0; j < usernamesArr.length; j++){
+                if(usersList[i].getAttribute('name') == usernamesArr[j]){
+                    usersList[i].firstChild.innerHTML = usernamesArr[j];                 
+                    continue outer;
+
+                }
             }
         }
-    }); */
+    });
 
-    socket.on('muteUser', () => {
+    socket.on('muteUser', (username) => {
         sendButton.disabled = true;
+        console.log('username');
+ /*        for (let i = 0; i < usersList.length; i++){
+            if (usersList[i].getAttribute('name') == username){
+                console.log(usersList[i].getAttribute('name'));
+                usersList[i].lastChild.lastChild.value = 'Unmute';
+            }
+        }  */     
+    });
+  
+
+    socket.on('unmuteUser', (username) => {
+       sendButton.disabled = false;      
     });
 
-    socket.on('unmuteUser', () => {
-        sendButton.disabled = false;
+
+    socket.on('disconnect', () =>{
+        window.location.replace('http://localhost:3000/')
     });
+
 
 
 
     document.onclick = (e)=>{
-
-        if(e.target.tagName == 'LI'){
-            console.log('LI')
-        }
         switch (e.target.className){
             case 'send':
-                socket.emit('send', messageInput.value);;
+                socket.emit('send', messageInput.value);
+                messageInput.value = '';
                 return;
             case 'ban':
-                console.log(e.target);
-                if(liFocusElem){
-                    socket.emit('ban', liFocusElem.innerHTML);
-                    
-                }
+                socket.emit('ban', e.target.parentNode.parentNode.getAttribute('name'));   
                 return;
             case 'mute':
-                if(liFocusElem){
-                    socket.emit('mute', liFocusElem.innerHTML)
-                }
-                console.log(e.target)
-                return;
-            case 'user':
-                liFocusElem = e.target;
-                console.log(e.target);
+                socket.emit('mute', e.target.parentNode.parentNode.getAttribute('name'))
                 return;
         }
     }
 
-    usersUl.onclick = (e) =>{
-        if(e.target.tagName === 'LI') console.log(e.target);
-    }
 }
 
-console.log('tese');
-function setRole(name) {
-    console.log(name);
-}

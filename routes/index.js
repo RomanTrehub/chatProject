@@ -13,7 +13,9 @@ const makeRequest = async ()=> {
   try{
     const allUsers = await api.checkUser(req.body);
     const newUser = await api.getUser(req.body);
-    console.log(newUser.admin);
+    api.setUserProp('user', 'mute', true);
+    const user = await api.getUser({name:'user', pass: '1'});
+    console.log(user);
     res.render('chat', { admin: newUser.admin, id:newUser._id, users: allUsers, jsPath: 'chat/chat', cssPath: 'chat', ioPath: 'chat/socket.io'});
   }catch(err){
     res.render('index', { error: err.message, jsPath: 'post', cssPath: 'author'});

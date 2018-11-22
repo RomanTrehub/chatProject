@@ -6,14 +6,22 @@ block content
       h2 Пользователи чата
       ul#usersUl
         each user in users
-          li(class='user', onclick = 'setRole(#{user._id})')
+          li(class='user' name= '#{user.username}')
             p #{user.username} :off
+            if(admin && user.username != 'admin')
+              div#adminButtons
+                if(user.ban)
+                  input(type="button", value="Unban", class="ban")
+                else
+                  input(type="button", value="Ban", class="ban")
+                
+                if(user.mute)
+                  input(type="button", value="Unmute" class="mute")
+                else
+                  input(type="button", value="Mute" class="mute")
+
 
   +userListCreator(users)
-  if(admin)
-    div#adminButtons
-      input(type="button", value="Ban" class="ban")
-      input(type="button", value="Mute" class="mute")
   div#chat
     h1 Добро пожаловать
     div#showing_mes

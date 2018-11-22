@@ -29,6 +29,26 @@ exports.getUser = async (userData) =>{
 
 }
 
+exports.getAllUsers =  ()=> {
+	return  User.find();	
+}
+
+exports.setUserProp = (username, prop, val)=>{
+	//const user = await User.findOne({username : username});
+	if (prop == 'ban'){
+		User.update({username: username}, {ban: val},(err)=>{
+			return err;
+		});
+	}
+	if(prop == 'mute'){
+		console.log('working');
+		User.update({username: username}, {mute: val}, (err)=>{
+			return err;
+		});
+	
+	}
+}
+
  
 exports.checkUser = async (userData) => {
 	try{
